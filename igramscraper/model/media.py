@@ -129,13 +129,7 @@ class Media(UtilsMixin, InitializerModel):
             medias_url = []
             for media in value:
                 medias_url.append(media['src'])
-
-                if media['config_width'] == 640:
-                    self.image_thumbnail_url = media['src']
-                elif media['config_width'] == 750:
-                    self.image_low_resolution_url = media['src']
-                elif media['config_width'] == 1080:
-                    self.image_standard_resolution_url = media['src']
+                self.set_image_urls(media)
 
         elif prop == 'display_src' or prop == 'display_url':
             self.image_high_resolution_url = value
