@@ -221,30 +221,14 @@ class Media(UtilsMixin, InitializerModel):
                 pass
 
         elif prop == 'edge_sidecar_to_children':
-            pass
-            # #TODO implement
-            # if (!is_array($arr[$prop]['edges'])) {
-            #     break;
-            # }
-            # foreach ($arr[$prop]['edges'] as $edge) {
-            #     if (!isset($edge['node'])) {
-            #         continue;
-            #     }
+            self.set_carousel_media([], arr['edge_sidecar_to_children']['edges'])
 
-            #     $this->sidecarMedias[] = static::create($edge['node']);
-            # }
         elif prop == '__typename':
             self.type = self.set_type(value)
 
         # if self.ownerId and self.owner != None:
         #     self.ownerId = self.getOwner().getId()
 
-    @staticmethod
-    def set_carousel_media(media_array, carousel_array):
-
-        print(carousel_array)
-        # TODO implement
-        pass
     def set_type(self, value):
         if value == 'GraphImage':
             return Media.TYPE_IMAGE
@@ -253,6 +237,18 @@ class Media(UtilsMixin, InitializerModel):
         elif value == 'GraphSidecar':
             return Media.TYPE_SIDECAR
 
+    def set_carousel_media(self, media_array, carousel_array):
+        # TODO Do we need media_array? If yes, why?
+        for carousel in carousel_array:
+            carousel_media = CarouselMedia()
+            carousel_media.type = self.set_type(carousel["node"]["__typename"])
+            if carousel_media.type == Media.TYPE_IMAGE:
+                for media in carousel["node"]["display_resources"]:
+                    carousel_media.set_image_urls(media)
+            elif carousel_media.type == Media.TYPE_VIDEO:
+                # TODO Implement
+                pass
+            self.carousel_media.append(carousel_media)
         """
         param mediaArray
         param carouselArray
