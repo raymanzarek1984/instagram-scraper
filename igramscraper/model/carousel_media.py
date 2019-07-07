@@ -1,4 +1,4 @@
-class CarouselMedia:
+from .mixins import UtilsMixin
 
     def __init__(self):
         self.__type = ''
@@ -11,3 +11,4 @@ class CarouselMedia:
         self.__video_low_bandwidth_url = ''
         self.__video_views = ''
 
+class CarouselMedia(UtilsMixin):

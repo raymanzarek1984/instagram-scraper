@@ -5,9 +5,10 @@ from .initializer_model import InitializerModel
 from .comment import Comment
 from .carousel_media import CarouselMedia
 from .. import endpoints
+from .mixins import UtilsMixin
 
 
-class Media(InitializerModel):
+class Media(UtilsMixin, InitializerModel):
     TYPE_IMAGE = 'image'
     TYPE_VIDEO = 'video'
     TYPE_SIDECAR = 'sidecar'
