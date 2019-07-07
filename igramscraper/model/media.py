@@ -240,12 +240,7 @@ class Media(UtilsMixin, InitializerModel):
             #     $this->sidecarMedias[] = static::create($edge['node']);
             # }
         elif prop == '__typename':
-            if value == 'GraphImage':
-                self.type = Media.TYPE_IMAGE
-            elif value == 'GraphVideo':
-                self.type = Media.TYPE_VIDEO
-            elif value == 'GraphSidecar':
-                self.type = Media.TYPE_SIDECAR
+            self.type = self.set_type(value)
 
         # if self.ownerId and self.owner != None:
         #     self.ownerId = self.getOwner().getId()
@@ -256,6 +251,14 @@ class Media(UtilsMixin, InitializerModel):
         print(carousel_array)
         # TODO implement
         pass
+    def set_type(self, value):
+        if value == 'GraphImage':
+            return Media.TYPE_IMAGE
+        elif value == 'GraphVideo':
+            return Media.TYPE_VIDEO
+        elif value == 'GraphSidecar':
+            return Media.TYPE_SIDECAR
+
         """
         param mediaArray
         param carouselArray
