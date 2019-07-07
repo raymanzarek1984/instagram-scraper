@@ -142,6 +142,7 @@ class Media(UtilsMixin, InitializerModel):
                 square_images_url.append(square_image['src'])
             self.square_images = square_images_url
 
+        # TODO Do we need this?
         elif prop == 'carousel_media':
             self.type = Media.TYPE_CAROUSEL
             self.carousel_media = []
